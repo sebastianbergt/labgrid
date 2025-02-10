@@ -33,7 +33,6 @@ enumeration order.
      speed: 115200
      xonxoff: False
      parity: 'none'
-     timeout: 0.0
 
 The example would access the serial port ``/dev/ttyUSB0`` on the local computer
 with a baud rate of ``115200``.
@@ -43,7 +42,6 @@ Arguments:
   - speed (int, default=115200): desired baud rate
   - xonxoff (bool, default=False): software flow control
   - parity (str, default="none"): enable parity checking
-  - timeout (float, default=False): timeout in seconds
 
 Used by:
   - `SerialDriver`_
