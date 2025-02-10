@@ -11,11 +11,15 @@ class SerialPort(Resource):
     Args:
         port (str): port to connect to
         speed (int): speed of the port, defaults to 115200
-        xonxoff (bool): software flow control, defaults to False (=off)"""
+        xonxoff (bool): software flow control, defaults to False (=off)
+        parity (str): enable parity checking, possible values: none, even, odd, mark, space
+        timeout (float): timeout of the port, defaults to 0.0
+        """
     port = attr.ib(default=None)
     speed = attr.ib(default=115200, validator=attr.validators.instance_of(int))
     xonxoff = attr.ib(default=False, validator=attr.validators.instance_of(bool))
-
+    parity =  attr.ib(default="none", validator=attr.validators.instance_of(str))
+    timeout = attr.ib(default=0.0, validator=attr.validators.instance_of(float))
 
 @target_factory.reg_resource
 @attr.s(eq=False)

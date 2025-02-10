@@ -11,6 +11,21 @@ from ..util.proxy import proxymanager
 from ..resource import SerialPort
 
 
+def _map_str_to_serial_parity(str_value):
+    match str_value:
+        case "none":
+            return serial.PARITY_NONE
+        case "even":
+            return serial.PARITY_EVEN
+        case "odd":
+            return serial.PARITY_ODD
+        case "mark":
+            return serial.PARITY_MARK
+        case "space":
+            return serial.PARITY_SPACE
+        case _:
+            raise Exception("SerialDriver: unknown parity value.")
+
 @target_factory.reg_driver
 @attr.s(eq=False)
 class SerialDriver(ConsoleExpectMixin, Driver, ConsoleProtocol):
@@ -40,6 +55,8 @@ class SerialDriver(ConsoleExpectMixin, Driver, ConsoleProtocol):
             self.serial.port = self.port.port
             self.serial.baudrate = self.port.speed
             self.serial.xonxoff = self.port.xonxoff
+            self.serial.parity = _map_str_to_serial_parity(self.port.parity)
+            self.serial.timeout = self.port.timeout
         else:
             host, port = proxymanager.get_host_and_port(self.port)
             if self.port.protocol == "rfc2217":

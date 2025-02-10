@@ -11,4 +11,6 @@ class TestSerialPort:
         assert (s.port == 'port')
         assert (s.speed == 115200)
         assert (s.xonxoff == False)
+        assert (s.parity == "none")
+        assert (s.timeout == 0.0)
         assert s in target.resources
